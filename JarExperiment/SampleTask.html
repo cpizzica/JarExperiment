@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="C:/Users/Chris/Documents/JarExperiment/jspsych.js"></script>
+  <script src="C:/Users/Chris/Documents/JarExperiment/plugins/jspsych-canvas-keyboard-response.js"></script>
+      <script src="C:/Users/Chris/Documents/JarExperiment/plugins/jspsych-image-keyboard-response.js"></script>
+
+  <script src="C:\Users\Chris\Documents\JarExperiment/js/fabric.js"> </script>
+  <link rel="stylesheet" href="C:\Users\Chris\Documents\JarExperiment/css/jspsych.css"></link>
+  <style>
+    img {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>   </body>
+<script>
+    // Will be used to shuffle jar choice, ball sequence, block sequence
+    function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+    ////////////
+var ball_drawing_trials = [1, 1, 1, 2, 2, 2, 5, 5, 5]    
+var ball_drawing_sequence = shuffle(ball_drawing_trials)
+    
+var timeline = []
+
+  var trial = {
+    type: 'canvas-keyboard-response',
+    stimulus: ['masonjar.jpg'],
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 2000,
+    prompt: '<p>No response allowed</p>'
+  }
+  
+  var test_trial = {
+      type: 'image-keyboard-response',
+      stimulus: ['2R18BSlide.png'],
+      stimulus_height: 400,
+      stimulus_width: 650,
+      choices: ['d', 'k'],
+      prompt: '<p>Press the d key for left and k key for right</p>'
+  }
+  
+    var first_sequence = {
+		  timeline: [trial],
+		  repetitions: ball_drawing_sequence[0]
+	  }
+    
+    var first_trial_sequence = {
+        timeline: [first_sequence, test_trial]
+    }
+    
+    timeline.push(first_trial_sequence)
+  
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function() {
+      jsPsych.data.displayData();
+    },
+    default_iti: 0
+  });
+</script>
+ <img src="C:\Users\Chris\Documents\JarExperiment/images/masonjar.jpg" id="my-image" hidden>
+</html>
