@@ -108,13 +108,13 @@ var canvas = new fabric.Canvas('BallsDrawn');
 var ScreenText = new fabric.Text('Balls Drawn:', {fontSize: 25, left: 0, top: 0})      
 canvas.add (ScreenText)
       
-var ball_amount = ball_drawing_trials[0]
+var ball_amount = ball_drawing_sequence[0]
 console.log(ball_amount)
 switch(ball_amount){
     case 1:
           var ball_1 = new fabric.Circle({
         radius: 10,
-        fill: 'blue',
+        fill: colorresultarray[0],
         left: 10,
         top: 100,
         });
@@ -126,14 +126,14 @@ switch(ball_amount){
     case 2:
         var ball_1 = new fabric.Circle({
         radius: 10,
-        fill: 'blue',
+        fill: colorresultarray[0],
         left: 10,
         top: 50,
         });
             
         var ball_2 = new fabric.Circle({
         radius: 10,
-        fill: 'red',
+        fill: colorresultarray[1],
         left: 40,
         top: 50,
         });
@@ -144,35 +144,35 @@ switch(ball_amount){
     case 5:
           var ball_1 = new fabric.Circle({
         radius: 10,
-        fill: 'red',
+        fill: colorresultarray[0],
         left: 10,
         top: 50,
         });
             
         var ball_2 = new fabric.Circle({
         radius: 10,
-        fill: 'blue',
+        fill: colorresultarray[1],
         left: 40,
         top: 50,
         });
         
           var ball_3 = new fabric.Circle({
         radius: 10,
-        fill: 'black',
+        fill: colorresultarray[2],
         left: 70,
         top: 50,
         });
         
           var ball_4 = new fabric.Circle({
         radius: 10,
-        fill: 'yellow',
+        fill: colorresultarray[3],
         left: 100,
         top: 50,
         });
         
           var ball_5 = new fabric.Circle({
         radius: 10,
-        fill: 'green',
+        fill: colorresultarray[4],
         left: 130,
         top: 50,
         });
