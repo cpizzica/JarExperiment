@@ -15,28 +15,16 @@
 </head>
 <body>   </body>
 <script>
+    var coinresultarray = [];
+    var colorresultarray = [];
+    var trial_number = 0;
+
     // Will be used to shuffle jar choice, ball sequence, block sequence
-    function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
 
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-  }
     ////////////
-var ball_drawing_trials = [1, 1, 1, 2, 2, 2, 5, 5, 5]    
-var ball_drawing_sequence = shuffle(ball_drawing_trials)
+var ball_drawing_trials = [1, 2, 5]    
+var ball_drawing_sequence = jsPsych.randomization.repeat(ball_drawing_trials, 3);
+    console.log(ball_drawing_sequence)
     
 var timeline = []
 
@@ -45,8 +33,19 @@ var timeline = []
     stimulus: ['masonjar.jpg'],
     choices: jsPsych.NO_KEYS,
     trial_duration: 2000,
-    prompt: '<p>No response allowed</p>'
-  }
+    prompt: '<p>No response allowed</p>',
+  	on_finish: function(){
+  		  coinresultarray += coinresult
+          if (coinresult === 1){
+              colorresultarray.push("red")}
+              else {
+                  colorresultarray.push("blue")
+              }
+        trial_number += 1
+        console.log(trial_number)
+          }
+    }
+  
   
   var test_trial = {
       type: 'image-keyboard-response',
@@ -57,11 +56,12 @@ var timeline = []
       prompt: '<p>Press the d key for left and k key for right</p>'
   }
   
+  ///The sequence is how many times a ball is drawn in a row. Nests with a test trial
     var first_sequence = {
 		  timeline: [trial],
 		  repetitions: ball_drawing_sequence[0]
 	  }
-    
+    ///Combination of balls being drawn and a test trial. Pushed to highest timeline node.
     var first_trial_sequence = {
         timeline: [first_sequence, test_trial]
     }
@@ -70,6 +70,11 @@ var timeline = []
   
   jsPsych.init({
     timeline: timeline,
+       on_data_update: function(data){
+           jsPsych.data.get().addToLast({coinresultarray: coinresultarray});
+           jsPsych.data.get().addToLast({colorresultarray: colorresultarray})
+           console.log(coinresultarray)
+       },
     on_finish: function() {
       jsPsych.data.displayData();
     },
