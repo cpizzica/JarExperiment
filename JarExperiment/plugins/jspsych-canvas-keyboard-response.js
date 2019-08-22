@@ -125,7 +125,7 @@ var canvas = new fabric.Canvas('jspsych-canvas-keyboard-response-stimulus');
       
 var ScreenText = new fabric.Text('Balls Drawn:', {left: 0, top: 550})      
 canvas.add (ball, imgInstance, ScreenText)
-      
+
 var flip = function () {
 coinresult = Math.floor(Math.random() * 2);
 }
@@ -150,76 +150,50 @@ var ReverseAnimation = function () {
     ball.set({top:300})
 }    
 //This is a garbage way of doing it, but needed to see what it would look like
-var ball_amount = ball_drawing_trials[0]
-console.log(ball_amount)
+var ball_amount = ball_drawing_sequence[0]
+console.log("ball amount" + ball_amount)
+console.log(colorresultarray)
 switch(ball_amount){
-    case 1:
-          var ball_1 = new fabric.Circle({
-        radius: 10,
-        fill: 'black',
-        left: 10,
-        top: 600,
-        });
-        
-        canvas.add(ball_1)
-        break;
-    
-
     case 2:
-          var ball_1 = new fabric.Circle({
+        var ball_1 = new fabric.Circle({
         radius: 10,
-        fill: 'black',
+        fill: colorresultarray[0],
         left: 10,
         top: 600,
         });
-            
-        var ball_2 = new fabric.Circle({
-        radius: 10,
-        fill: 'black',
-        left: 40,
-        top: 600,
-        });
-        
-        canvas.add(ball_1, ball_2)
+        canvas.add(ball_1)
         break;
         
     case 5:
           var ball_1 = new fabric.Circle({
         radius: 10,
-        fill: 'black',
+        fill: colorresultarray[0],
         left: 10,
         top: 600,
         });
             
         var ball_2 = new fabric.Circle({
         radius: 10,
-        fill: 'black',
+        fill: colorresultarray[1],
         left: 40,
         top: 600,
         });
         
-          var ball_3 = new fabric.Circle({
+        var ball_3 = new fabric.Circle({
         radius: 10,
-        fill: 'black',
+        fill: colorresultarray[2],
         left: 70,
         top: 600,
         });
         
-          var ball_4 = new fabric.Circle({
+        var ball_4 = new fabric.Circle({
         radius: 10,
-        fill: 'black',
+        fill: colorresultarray[3],
         left: 100,
         top: 600,
         });
         
-          var ball_5 = new fabric.Circle({
-        radius: 10,
-        fill: 'black',
-        left: 130,
-        top: 600,
-        });
-        
-        canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5)
+        canvas.add(ball_1, ball_2, ball_3, ball_4)
         break;
 }
                   
@@ -229,7 +203,8 @@ ResultsAnimation()
 setTimeout(ReverseAnimation, 1000)
 }
 BallCondition()
-
+    
+    
     
     // function to end trial when it is time
     var end_trial = function() {
