@@ -1,14 +1,3 @@
-/**
- * jspsych-image-keyboard-response
- * Josh de Leeuw
- *
- * plugin for displaying a stimulus and getting a keyboard response
- *
- * documentation: docs.jspsych.org
- *
- **/
-
-
 jsPsych.plugins["image-keyboard-response"] = (function() {
 
   var plugin = {};
@@ -108,20 +97,16 @@ var canvas = new fabric.Canvas('BallsDrawn');
 var ScreenText = new fabric.Text('Balls Drawn:', {fontSize: 25, left: 0, top: 0})      
 canvas.add (ScreenText)
       
-var ball_amount = ball_drawing_sequence[0]
-console.log(ball_amount)
-switch(ball_amount){
-    case 1:
-          var ball_1 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[0],
-        left: 10,
-        top: 100,
-        });
-        
-        canvas.add(ball_1)
-        break;
+switch(jar_selection_sequence[sequence_counter]) {
+    case 'jar_1_both':
+    var ball_amount = ball_drawing_sequence_1[sequence_counter_jar_1]
+    break;
     
+    case 'jar_2_both':
+    var ball_amount = ball_drawing_sequence_2[sequence_counter_jar_2]
+    break;
+}
+switch(ball_amount){   
 
     case 2:
         var ball_1 = new fabric.Circle({
@@ -178,6 +163,80 @@ switch(ball_amount){
         });
         
         canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5)
+        break;
+		
+    case 10:
+          var ball_1 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[0],
+        left: 10,
+        top: 50,
+        });
+            
+        var ball_2 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[1],
+        left: 40,
+        top: 50,
+        });
+        
+        var ball_3 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[2],
+        left: 70,
+        top: 50,
+        });
+        
+        var ball_4 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[3],
+        left: 100,
+        top: 50,
+        });
+		
+        var ball_5 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[4],
+        left: 130,
+        top: 50,
+        });
+		
+        var ball_6 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[5],
+        left: 160,
+        top: 50,
+        });
+		
+        var ball_7 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[6],
+        left: 190,
+        top: 50,
+        });
+		
+        var ball_8 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[7],
+        left: 220,
+        top: 50,
+        });
+		
+        var ball_9 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[8],
+        left: 250,
+        top: 50,
+        });
+		
+        var ball_10 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[9],
+        left: 280,
+        top: 50,
+        });
+        
+        canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9, ball_10)
         break;
 }      
       
