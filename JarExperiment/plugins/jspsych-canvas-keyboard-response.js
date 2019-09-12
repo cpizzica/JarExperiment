@@ -1,14 +1,3 @@
-/**
- * jspsych-image-keyboard-response
- * Josh de Leeuw
- *
- * plugin for displaying a stimulus and getting a keyboard response
- *
- * documentation: docs.jspsych.org
- *
- **/
-
-
 jsPsych.plugins["canvas-keyboard-response"] = (function() {
 
   var plugin = {};
@@ -125,12 +114,36 @@ var canvas = new fabric.Canvas('jspsych-canvas-keyboard-response-stimulus');
       
 var ScreenText = new fabric.Text('Balls Drawn:', {left: 0, top: 550})      
 canvas.add (ball, imgInstance, ScreenText)
-
+/*
 var flip = function () {
-coinresult = Math.floor(Math.random() * 2);
+	switch(jar_selection_sequence[0]){
+	case 1:
+		coinresult = jsPsych.randomization.sampleWithReplacement(jar_1_both);
+		console.log(coinresult)
+		break;
+	case 2:
+		coinresult = jsPsych.randomization.sampleWithReplacement(jar_2_both);
+		console.log(coinresult)
+		break
+	}
 }
+*/
+var jar_shake = []
+var flip = function () {
+	if(jar_selection_sequence[sequence_counter] === 'jar_1_both'){
+		jar_shake = jsPsych.randomization.sampleWithReplacement(jar_1_both,1);
+		coinresult = jar_shake[0]
+	}
+	else{
+		jar_shake = jsPsych.randomization.sampleWithReplacement(jar_2_both,1);
+		coinresult = jar_shake[0]
+
+	}
+}
+
+
 var ResultsAnimation = function () {
-    if(coinresult == 0){
+    if(coinresult === 0){
         ball.set({fill: 'blue'})}
         else{
             ball.set({fill: 'red'})
@@ -149,10 +162,21 @@ var ReverseAnimation = function () {
                 duration: 500})
     ball.set({top:300})
 }    
-//This is a garbage way of doing it, but needed to see what it would look like
-var ball_amount = ball_drawing_sequence[0]
-console.log("ball amount" + ball_amount)
-console.log(colorresultarray)
+
+     
+switch(jar_selection_sequence[sequence_counter]) {
+    case 'jar_1_both':
+    var ball_amount = ball_drawing_sequence_1[sequence_counter_jar_1]
+    break;
+    
+    case 'jar_2_both':
+    var ball_amount = ball_drawing_sequence_2[sequence_counter_jar_2]
+    break;
+}
+    
+//var ball_amount = ball_drawing_sequence[sequence_counter]
+
+     
 switch(ball_amount){
     case 2:
         var ball_1 = new fabric.Circle({
@@ -194,6 +218,73 @@ switch(ball_amount){
         });
         
         canvas.add(ball_1, ball_2, ball_3, ball_4)
+        break;
+		
+    case 10:
+          var ball_1 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[0],
+        left: 10,
+        top: 600,
+        });
+            
+        var ball_2 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[1],
+        left: 40,
+        top: 600,
+        });
+        
+        var ball_3 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[2],
+        left: 70,
+        top: 600,
+        });
+        
+        var ball_4 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[3],
+        left: 100,
+        top: 600,
+        });
+		
+        var ball_5 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[4],
+        left: 130,
+        top: 600,
+        });
+		
+        var ball_6 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[5],
+        left: 160,
+        top: 600,
+        });
+		
+        var ball_7 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[6],
+        left: 190,
+        top: 600,
+        });
+		
+        var ball_8 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[7],
+        left: 220,
+        top: 600,
+        });
+		
+        var ball_9 = new fabric.Circle({
+        radius: 10,
+        fill: colorresultarray[8],
+        left: 250,
+        top: 600,
+        });
+        
+        canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9)
         break;
 }
                   
