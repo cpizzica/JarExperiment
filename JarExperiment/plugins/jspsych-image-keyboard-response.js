@@ -83,7 +83,7 @@ jsPsych.plugins["image-keyboard-response"] = (function() {
       }
     }
     html +='"></img>';
-      html +=  '<canvas id="BallsDrawn" width="400" height="200">'+ '</canvas>'
+      html +=  '<canvas id="BallsDrawn" width="600" height="200">'+ '</canvas>'
 
     // add prompt
     if (trial.prompt !== null){
@@ -284,7 +284,29 @@ switch(ball_amount){
       }
 
       if (trial.response_ends_trial) {
-        end_trial();
+    switch(jar_selection_sequence[sequence_counter]) {
+    case 'jar_1_both':
+            var TestTextCorrect = new fabric.Text('Correct', {fontSize: 30, left: 100, top: 100}) 
+            var TestTextIncorrect = new fabric.Text('Incorrect', {fontSize: 30, left: 400, top: 100})
+            if(tutorial_trial <= 11){
+            canvas.add (TestTextCorrect, TestTextIncorrect)
+            }
+    break;
+    
+    case 'jar_2_both':
+            var TestTextIncorrect = new fabric.Text('Incorrect', {fontSize: 30, left: 100, top: 100}) 
+            var TestTextCorrect = new fabric.Text('Correct', {fontSize: 30, left: 400, top: 100}) 
+            if(tutorial_trial <= 11){
+            canvas.add (TestTextCorrect, TestTextIncorrect)
+            }    
+    break;
+}
+        if(tutorial_trial <=11){  
+        setTimeout(end_trial, 2000);
+        }
+          else{
+              end_trial()
+          }
       }
     };
 
