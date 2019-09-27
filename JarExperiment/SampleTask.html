@@ -4,6 +4,8 @@
   <script src="../JarExperiment/jspsych.js"></script>
   <script src="../JarExperiment/plugins/jspsych-canvas-keyboard-response.js"></script>
       <script src="../JarExperiment/plugins/jspsych-image-keyboard-response.js"></script>
+          <script src="../JarExperiment/plugins/jspsych-image-keyboard-response-original.js"></script>
+
 
   <script src="../JarExperiment/js/fabric.js"> </script>
   <link rel="stylesheet" href="../JarExperiment/css/jspsych.css"></link>
@@ -20,6 +22,11 @@
 	var sequence_counter = 0;
     var sequence_counter_jar_1 = 0;
     var sequence_counter_jar_2 = 0;
+    var tutorial_trial = 0;
+    var testimage = []
+
+
+    
 
     // Will be used to shuffle jar choice, ball sequence, block sequence
 
@@ -58,22 +65,30 @@ var trial_counter = 1
                   colorresultarray.push("blue")
               }
 	    trial_counter += 1
+        
           }
     }
   
   
   var test_trial = {
       type: 'image-keyboard-response',
-      stimulus: ['2R18BSlide.png'],
+      stimulus: [],
       stimulus_height: 400,
       stimulus_width: 650,
-      choices: ['d', 'k'],
-      prompt: '<p>Press the d key for left and k key for right</p>',
-	  on_finish: function(data){
+      choices: ['leftarrow', 'rightarrow'],
+      prompt: '<p>Press the left arrow key for left and right arrow key for right</p>',
+	   on_start: function(trial){
+           trial.stimulus = testimage
+           console.log(test_trial.stimulus)
+           console.log(testimage)
+       },
+      
+      on_finish: function(data){
 	  	coinresultarray = []
 		colorresultarray = []
 		trial_counter = 1
 		sequence_counter += 1
+        tutorial_trial += 1
 
     switch(jar_selection_sequence[sequence_counter]) {
     case 'jar_1_both':
@@ -102,12 +117,16 @@ var jar_2_red = jsPsych.randomization.repeat(jar_redballs, 18)
 var jar_2_concat = jar_2_blue.concat(jar_2_red)
 var jar_2_both = jsPsych.randomization.shuffle(jar_2_concat)
 
+testimage = ['2R18BSlide.png']
 
   
 var jar_change_1 = {
-	type: 'image-keyboard-response',
-	choice: ['g'],
-	prompt: '<p> Jar Shift. Place holder text. hit g to continue. </p>',
+	type: 'image-keyboard-response-original',
+    stimulus: ['6R14BSlide.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: ['spacebar'],
+	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue. </p>',
 	on_finish: function(){
 	jar_blueballs = [0]
 	jar_redballs = [1] 
@@ -126,6 +145,8 @@ var jar_change_1 = {
 	 sequence_counter = 0
      sequence_counter_jar_1 = 0
      sequence_counter_jar_2 = 0
+        
+    testimage = ['6R14BSlide.png']
   }
 }
   
@@ -135,9 +156,12 @@ var jar_change_1 = {
   }
   
   var jar_change_2 = {
-	type: 'image-keyboard-response',
-	choice: ['d', 'k'],
-	prompt: '<p> Jar Shift. Place holder text. hit d or k </p>',
+	type: 'image-keyboard-response-original',
+    stimulus: ['1R19BSlide.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: ['spacebar'],
+	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue </p>',
 	on_finish: function(){
 	jar_blueballs = [0]
 	jar_redballs = [1] 
@@ -156,6 +180,8 @@ var jar_change_1 = {
 	sequence_counter = 0
     sequence_counter_jar_1 = 0
     sequence_counter_jar_2 = 0
+        
+    testimage = ['1R19BSlide.png']
   }
 }
   
@@ -165,9 +191,12 @@ var jar_change_1 = {
   }
   
     var jar_change_3 = {
-	type: 'image-keyboard-response',
-	choice: ['d', 'k'],
-	prompt: '<p> Jar Shift. Place holder text. hit d or k </p>',
+	type: 'image-keyboard-response-original',
+    stimulus: ['12R8BSlide.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: ['spacebar'],
+	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue </p>',
 	on_finish: function(){
     jar_blueballs = [0]
 	jar_redballs = [1] 
@@ -186,6 +215,8 @@ var jar_change_1 = {
 	sequence_counter = 0
     sequence_counter_jar_1 = 0
     sequence_counter_jar_2 = 0
+        
+    testimage = ['12R8BSlide.png']
   }
 }
   
@@ -219,19 +250,89 @@ var jar_change_1 = {
             }
 	  }
   
+    var jar_block_order_array = [jar_change_trial_1,jar_change_trial_2,jar_change_trial_3]
+    var jar_block_order_shuffled = jsPsych.randomization.shuffle(jar_block_order_array)
+    
     ///Combination of balls being drawn and a test trial. Pushed to highest timeline node.
+        var tutorial_block = {
+        timeline: [draw_sequence, test_trial],
+		///should be 24 for full test block
+        repetitions: 1
+    }
+    
+    
     var experiment_block = {
         timeline: [draw_sequence, test_trial],
 		///should be 38 for full test block
-        repetitions: 3
+        repetitions: 1
     }
     
-    timeline.push(experiment_block)
-	timeline.push(jar_change_trial_1)
+    var instructions_1 = {
+	type: 'image-keyboard-response-original',
+    stimulus: ['InstructionsP1.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: [],
+	prompt: '<p> Hit any key to move to the next slide. </p>'
+    }
+    
+    var instructions_2 = {
+	type: 'image-keyboard-response-original',
+    stimulus: ['InstructionsP2.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: [],
+	prompt: '<p> Hit any key to move to the next slide. </p>'
+    }
+    
+    var instructions_3 = {
+	type: 'image-keyboard-response-original',
+    stimulus: ['InstructionsP3.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: [],
+	prompt: '<p> Hit any key to move to the next slide. </p>'
+    }
+    
+    var instructions_4 = {
+	type: 'image-keyboard-response-original',
+    stimulus: ['InstructionsP4.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: [],
+	prompt: '<p> Hit any key to move to the next slide. </p>'
+    }
+    
+    var instructions_5 = {
+	type: 'image-keyboard-response-original',
+    stimulus: ['InstructionsP5.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: [],
+	prompt: '<p> Hit any key to move to the next slide. </p>'
+    }
+    
+    var instructions_6 = {
+	type: 'image-keyboard-response-original',
+    stimulus: ['InstructionsP6.png'],
+    stimulus_height: 400,
+    stimulus_width: 650,
+	choice: [],
+	prompt: '<p> Hit any key to move to the next slide. </p>'
+    }
+    
+    timeline.push(instructions_1)
+       timeline.push(instructions_2)
+       timeline.push(instructions_3)
+       timeline.push(instructions_4)
+       timeline.push(instructions_5)
+       timeline.push(instructions_6)
+    timeline.push(tutorial_block)
+	timeline.push(jar_block_order_shuffled[0])
 	timeline.push(experiment_block)
-    timeline.push(jar_change_2)
+    timeline.push(jar_block_order_shuffled[1])
     timeline.push(experiment_block)
-    timeline.push(jar_change_3)
+    timeline.push(jar_block_order_shuffled[2])
     timeline.push(experiment_block)
   
   jsPsych.init({
