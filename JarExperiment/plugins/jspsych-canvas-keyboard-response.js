@@ -312,7 +312,8 @@ BallCondition()
       var trial_data = {
         "rt": response.rt,
         "stimulus": trial.stimulus,
-        "key_press": response.key
+        "key_press": response.key,
+        "Ball_color": coinresult
       };
 
       // clear the display
