@@ -42,6 +42,7 @@ var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2
 // Jar selected Array
 var jar_selection = ['jar_1_both','jar_2_both']
 var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+console.log(jar_selection_sequence)
 
 //////////////////
 
@@ -79,8 +80,6 @@ var trial_counter = 1
       prompt: '<p>Press the left arrow key for left and right arrow key for right</p>',
 	   on_start: function(trial){
            trial.stimulus = testimage
-           console.log(test_trial.stimulus)
-           console.log(testimage)
        },
       
       on_finish: function(data){
@@ -128,6 +127,18 @@ var jar_change_1 = {
 	choice: ['spacebar'],
 	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue. </p>',
 	on_finish: function(){
+    
+var ball_drawing_trials_1 = [2, 5, 10]
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+    
+var ball_drawing_trials_2 = [2, 5, 10]
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+
+// Jar selected Array
+var jar_selection = ['jar_1_both','jar_2_both']
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+    
+        
 	jar_blueballs = [0]
 	jar_redballs = [1] 
 
@@ -163,6 +174,17 @@ var jar_change_1 = {
 	choice: ['spacebar'],
 	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue </p>',
 	on_finish: function(){
+var ball_drawing_trials_1 = [2, 5, 10]
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+    
+var ball_drawing_trials_2 = [2, 5, 10]
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+
+// Jar selected Array
+var jar_selection = ['jar_1_both','jar_2_both']
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+        
+        
 	jar_blueballs = [0]
 	jar_redballs = [1] 
 
@@ -198,6 +220,17 @@ var jar_change_1 = {
 	choice: ['spacebar'],
 	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue </p>',
 	on_finish: function(){
+//var ball_drawing_trials_1 = [2, 5, 10]
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+    
+//var ball_drawing_trials_2 = [2, 5, 10]
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+
+// Jar selected Array
+var jar_selection = ['jar_1_both','jar_2_both']
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+        
+        
     jar_blueballs = [0]
 	jar_redballs = [1] 
 
@@ -257,14 +290,14 @@ var jar_change_1 = {
         var tutorial_block = {
         timeline: [draw_sequence, test_trial],
 		///should be 24 for full test block
-        repetitions: 1
+        repetitions: 24
     }
     
     
     var experiment_block = {
         timeline: [draw_sequence, test_trial],
-		///should be 38 for full test block
-        repetitions: 1
+		///should be 36 for full test block
+        repetitions: 36
     }
     
     var instructions_1 = {
@@ -351,3 +384,4 @@ var jar_change_1 = {
 </script>
  <img src="masonjar.jpg" id="my-image" hidden>
 </html>
+
