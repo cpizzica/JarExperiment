@@ -34,14 +34,14 @@
 
 //Sequence array
 var ball_drawing_trials_1 = [2, 5, 10]
-var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 7);
     
 var ball_drawing_trials_2 = [2, 5, 10]
-var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 7);
 
 // Jar selected Array
 var jar_selection = ['jar_1_both','jar_2_both']
-var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
 console.log(jar_selection_sequence)
 
 //////////////////
@@ -121,7 +121,7 @@ testimage = ['2R18BSlide.png']
   
 var jar_change_1 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['6R14BSlide.png'],
+    stimulus: ['2Red18Blue4Red16Blue.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: ['spacebar'],
@@ -129,14 +129,14 @@ var jar_change_1 = {
 	on_finish: function(){
     
 var ball_drawing_trials_1 = [2, 5, 10]
-var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 7);
     
 var ball_drawing_trials_2 = [2, 5, 10]
-var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 7);
 
 // Jar selected Array
 var jar_selection = ['jar_1_both','jar_2_both']
-var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     
         
 	jar_blueballs = [0]
@@ -148,8 +148,8 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
 	 jar_1_concat = jar_1_blue.concat(jar_1_red)
 	 jar_1_both = jsPsych.randomization.shuffle(jar_1_concat)
 
-	 jar_2_blue = jsPsych.randomization.repeat(jar_blueballs, 6)
-	 jar_2_red = jsPsych.randomization.repeat(jar_redballs, 14)
+	 jar_2_blue = jsPsych.randomization.repeat(jar_blueballs, 16)
+	 jar_2_red = jsPsych.randomization.repeat(jar_redballs, 4)
 	 jar_2_concat = jar_2_blue.concat(jar_2_red)
 	 jar_2_both = jsPsych.randomization.shuffle(jar_2_concat)
 	  
@@ -157,7 +157,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
      sequence_counter_jar_1 = 0
      sequence_counter_jar_2 = 0
         
-    testimage = ['6R14BSlide.png']
+    testimage = ['2Red18Blue4Red16Blue.png']
   }
 }
   
@@ -168,21 +168,21 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
   
   var jar_change_2 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['1R19BSlide.png'],
+    stimulus: ['2Red18Blue8Red12Blue.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: ['spacebar'],
 	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue </p>',
 	on_finish: function(){
 var ball_drawing_trials_1 = [2, 5, 10]
-var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 7);
     
 var ball_drawing_trials_2 = [2, 5, 10]
-var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 7);
 
 // Jar selected Array
 var jar_selection = ['jar_1_both','jar_2_both']
-var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
         
         
 	jar_blueballs = [0]
@@ -194,8 +194,8 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
 	jar_1_concat = jar_1_blue.concat(jar_1_red)
 	jar_1_both = jsPsych.randomization.shuffle(jar_1_concat)
 
-	jar_2_blue = jsPsych.randomization.repeat(jar_blueballs, 19)
-	jar_2_red = jsPsych.randomization.repeat(jar_redballs, 1)
+	jar_2_blue = jsPsych.randomization.repeat(jar_blueballs, 12)
+	jar_2_red = jsPsych.randomization.repeat(jar_redballs, 8)
 	jar_2_concat = jar_2_blue.concat(jar_2_red)
 	jar_2_both = jsPsych.randomization.shuffle(jar_2_concat)
 	  
@@ -203,7 +203,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
     sequence_counter_jar_1 = 0
     sequence_counter_jar_2 = 0
         
-    testimage = ['1R19BSlide.png']
+    testimage = ['2Red18Blue8Red12Blue.png']
   }
 }
   
@@ -214,28 +214,28 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
   
     var jar_change_3 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['12R8BSlide.png'],
+    stimulus: ['8Red12Blue12Red8Blue.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: ['spacebar'],
 	prompt: '<p> Jar Shift. The colored balls will now be drawn from the two jars above. Hit the spacebar to continue </p>',
 	on_finish: function(){
 //var ball_drawing_trials_1 = [2, 5, 10]
-var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 7);
     
 //var ball_drawing_trials_2 = [2, 5, 10]
-var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 7);
 
 // Jar selected Array
 var jar_selection = ['jar_1_both','jar_2_both']
-var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
         
         
     jar_blueballs = [0]
 	jar_redballs = [1] 
 
 
-	jar_1_blue = jsPsych.randomization.repeat(jar_blueballs, 18)
+	jar_1_blue = jsPsych.randomization.repeat(jar_blueballs, 12)
 	jar_1_red = jsPsych.randomization.repeat(jar_redballs, 8)
 	jar_1_concat = jar_1_blue.concat(jar_1_red)
 	jar_1_both = jsPsych.randomization.shuffle(jar_1_concat)
@@ -249,7 +249,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
     sequence_counter_jar_1 = 0
     sequence_counter_jar_2 = 0
         
-    testimage = ['12R8BSlide.png']
+    testimage = ['8Red12Blue12Red8Blue.png']
   }
 }
   
@@ -289,15 +289,15 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
     ///Combination of balls being drawn and a test trial. Pushed to highest timeline node.
         var tutorial_block = {
         timeline: [draw_sequence, test_trial],
-		///should be 24 for full test block
-        repetitions: 24
+		///should be 36 for full tutorial block
+			repetitions: 36
     }
     
     
     var experiment_block = {
         timeline: [draw_sequence, test_trial],
-		///should be 36 for full test block
-        repetitions: 36
+		///should be 42 for full test block
+        repetitions: 42
     }
     
     var instructions_1 = {
