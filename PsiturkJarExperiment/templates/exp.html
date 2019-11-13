@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title>Guess the correct jar</title>
+   
+<script src="/static/lib/jquery-min.js" type="text/javascript"> </script>
+<script src="/static/lib/underscore-min.js" type="text/javascript"> </script>
+<script src="/static/lib/backbone-min.js" type="text/javascript"> </script>
+<script src="/static/lib/d3.v3.min.js" type="text/javascript"> </script>      
+
+<script src="/static/js/jspsych.js"></script>
+<script src="/static/plugins/jspsych-canvas-keyboard-response.js" type="text/javascript"></script>
+<script src="/static/plugins/jspsych-image-keyboard-response.js" type="text/javascript"></script>
+<script src="/static/plugins/jspsych-image-keyboard-response-original.js" type="text/javascript"></script>
+
+
+  <script src="/static/js/fabric.js"> </script>
+  <link rel="stylesheet" href="/static/css/jspsych.css"></link>
+		
+		
+
+        <script src="/static/js/psiturk.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            // These fields provided by the psiTurk Server
+            var uniqueId = "{{ uniqueId }}"; // a unique string identifying the worker/task
+            var adServerLoc = "{{ adServerLoc }}"; // the location of your ad (so you can send user back at end of experiment)
+            var mode = "{{ mode }}"; // is this running live, sandbox, or in debug mode?
+			      var condition = {{ condition }}; // the condition number
+			      var counterbalance = {{ counterbalance }}; // a number indexing counterbalancing conditions
+        </script>
+
+        <link href="/static/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <link href="/static/css/style.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+		<div id='jspsych-target' class='center-content'></div>
+    </body>
+
+    <!-- experiment logic script -->
+    <script src="/static/js/task.js" type="text/javascript"></script>
+	<img src="/static/images/masonjar.jpg" id="my-image" hidden>
+</html>

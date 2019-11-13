@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <script src="../JarExperiment/jspsych.js"></script>
-  <script src="../JarExperiment/plugins/jspsych-canvas-keyboard-response.js"></script>
-      <script src="../JarExperiment/plugins/jspsych-image-keyboard-response.js"></script>
-          <script src="../JarExperiment/plugins/jspsych-image-keyboard-response-original.js"></script>
+var psiturk = new PsiTurk(uniqueId, adServerLoc, mode);
 
 
-  <script src="../JarExperiment/js/fabric.js"> </script>
-  <link rel="stylesheet" href="../JarExperiment/css/jspsych.css"></link>
-  <style>
-    img {
-      width: 300px;
-    }
-  </style>
-</head>
-<body>   </body>
-<script>
     var coinresultarray = [];
     var colorresultarray = [];
 	var sequence_counter = 0;
@@ -54,7 +38,7 @@ var timeline = []
 var trial_counter = 1
   var trial = {
     type: 'canvas-keyboard-response',
-    stimulus: ['masonjar.jpg'],
+    stimulus: ['/static/images/masonjar.jpg'],
     choices: jsPsych.NO_KEYS,
     trial_duration: 2000,
     prompt: '<p>No response allowed</p>',
@@ -117,12 +101,12 @@ var jar_2_red = jsPsych.randomization.repeat(jar_redballs, 18)
 var jar_2_concat = jar_2_blue.concat(jar_2_red)
 var jar_2_both = jsPsych.randomization.shuffle(jar_2_concat)
 
-testimage = ['2R18BSlide.png']
+testimage = ['/static/images/2R18BSlide.png']
 
   
 var jar_change_1 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['2Red18Blue4Red16Blue.png'],
+    stimulus: ['/static/images/2Red18Blue4Red16Blue.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: ['spacebar'],
@@ -158,7 +142,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
      sequence_counter_jar_1 = 0
      sequence_counter_jar_2 = 0
         
-    testimage = ['2Red18Blue4Red16Blue.png']
+    testimage = ['/static/images/2Red18Blue4Red16Blue.png']
   }
 }
   
@@ -169,7 +153,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
   
   var jar_change_2 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['2Red18Blue8Red12Blue.png'],
+    stimulus: ['/static/images/2Red18Blue8Red12Blue.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: ['spacebar'],
@@ -204,7 +188,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     sequence_counter_jar_1 = 0
     sequence_counter_jar_2 = 0
         
-    testimage = ['2Red18Blue8Red12Blue.png']
+    testimage = ['/static/images/2Red18Blue8Red12Blue.png']
   }
 }
   
@@ -215,7 +199,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
   
     var jar_change_3 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['8Red12Blue12Red8Blue.png'],
+    stimulus: ['/static/images/8Red12Blue12Red8Blue.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: ['spacebar'],
@@ -250,7 +234,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     sequence_counter_jar_1 = 0
     sequence_counter_jar_2 = 0
         
-    testimage = ['8Red12Blue12Red8Blue.png']
+    testimage = ['/static/images/8Red12Blue12Red8Blue.png']
   }
 }
   
@@ -303,7 +287,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     
     var instructions_1 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['InstructionsP1.png'],
+    stimulus: ['/static/images/InstructionsP1.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: [],
@@ -312,7 +296,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     
     var instructions_2 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['InstructionsP2.png'],
+    stimulus: ['/static/images/InstructionsP2.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: [],
@@ -321,7 +305,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     
     var instructions_3 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['InstructionsP3.png'],
+    stimulus: ['/static/images/InstructionsP3.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: [],
@@ -330,7 +314,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     
     var instructions_4 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['InstructionsP4.png'],
+    stimulus: ['/static/images/InstructionsP4.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: [],
@@ -339,7 +323,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     
     var instructions_5 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['InstructionsP5.png'],
+    stimulus: ['/static/images/InstructionsP5.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: [],
@@ -348,7 +332,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     
     var instructions_6 = {
 	type: 'image-keyboard-response-original',
-    stimulus: ['InstructionsP6.png'],
+    stimulus: ['/static/images/InstructionsP6.png'],
     stimulus_height: 400,
     stimulus_width: 650,
 	choice: [],
@@ -379,10 +363,18 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     on_finish: function() {
       jsPsych.data.displayData();
 	  //jsPsych.data.get().localSave('csv','mydata.csv');
+	  
+	psiturk.saveData({
+		success: function(){
+		psiturk.computeBonus("compute_bonus", function() {
+			psiturk.completeHIT();
+			});
     },
-    default_iti: 0
   });
-</script>
- <img src="masonjar.jpg" id="my-image" hidden>
-</html>
+},
+default_iti: 0
+
+});
+
+
 
