@@ -42,6 +42,7 @@ var trial_counter = 1
     choices: jsPsych.NO_KEYS,
     trial_duration: 2000,
     prompt: '<p>No response allowed</p>',
+	  post_trial_gap: 0,
   	on_finish: function(){
   		  coinresultarray += coinresult
           if (coinresult === 1){
@@ -354,6 +355,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     timeline.push(experiment_block)
   
   jsPsych.init({
+	  default_iti: 0,
     timeline: timeline,
        on_data_update: function(data){
            jsPsych.data.get().addToLast({coinresultarray: coinresultarray});
@@ -372,7 +374,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
     },
   });
 },
-default_iti: 0
+
 
 });
 
