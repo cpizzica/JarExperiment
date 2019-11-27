@@ -1,15 +1,15 @@
-jsPsych.plugins["image-keyboard-response"] = (function() {
+jsPsych.plugins["canvas-keyboard-response-draw"] = (function() {
 
   var plugin = {};
 
-  jsPsych.pluginAPI.registerPreload('image-keyboard-response', 'stimulus', 'image');
+  jsPsych.pluginAPI.registerPreload('canvas-keyboard-response-draw', 'stimulus', 'image');
 
   plugin.info = {
-    name: 'image-keyboard-response',
+    name: 'canvas-keyboard-response-draw',
     description: '',
     parameters: {
       stimulus: {
-        type: jsPsych.plugins.parameterType.IMAGE,
+        type: jsPsych.plugins.parameterType.HTML_STRING,
         pretty_name: 'Stimulus',
         default: undefined,
         description: 'The image to be displayed'
@@ -38,6 +38,12 @@ jsPsych.plugins["image-keyboard-response"] = (function() {
         pretty_name: 'Choices',
         default: jsPsych.ALL_KEYS,
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
+      },
+      ballcount: {
+          type: jsPsych.plugins.parameterType.INT,
+          array: true,
+          default: null,
+          description: 'How many times a ball will be selected'
       },
       prompt: {
         type: jsPsych.plugins.parameterType.STRING,
@@ -69,22 +75,7 @@ jsPsych.plugins["image-keyboard-response"] = (function() {
   plugin.trial = function(display_element, trial) {
 
     // display stimulus
-    var html = '<img src="'+trial.stimulus+'" id="jspsych-image-keyboard-response-stimulus" style="';
-    if(trial.stimulus_height !== null){
-      html += 'height:'+trial.stimulus_height+'px; '
-      if(trial.stimulus_width == null && trial.maintain_aspect_ratio){
-        html += 'width: auto; ';
-      }
-    }
-    if(trial.stimulus_width !== null){
-      html += 'width:'+trial.stimulus_width+'px; '
-      if(trial.stimulus_height == null && trial.maintain_aspect_ratio){
-        html += 'height: auto; ';
-      }
-    }
-    html +='"></img>';
-      html +=  '<canvas id="BallsDrawn" width="600" height="200">'+ '</canvas>'
-	html += 'Block Percent Complete: ' + (Math.round(((sequence_counter+1)/tutorial_block.repetitions)*100))+ '%'
+    var html = '<canvas id="jspsych-canvas-keyboard-response-draw-stimulus" width="700" height="700" style="border:1px solid;">' + trial.stimulus + '</canvas>';
 
     // add prompt
     if (trial.prompt !== null){
@@ -94,10 +85,85 @@ jsPsych.plugins["image-keyboard-response"] = (function() {
     // render
     display_element.innerHTML = html;
 
-var canvas = new fabric.Canvas('BallsDrawn'); 
-var ScreenText = new fabric.Text('Balls Drawn:', {fontSize: 25, left: 0, top: 0})
-canvas.add (ScreenText)
       
+      
+      
+    // store response
+    var response = {
+      rt: null,
+      key: null
+    };
+      
+var ctx = document.getElementById('jspsych-canvas-keyboard-response-draw-stimulus')
+var canvas = new fabric.Canvas('jspsych-canvas-keyboard-response-draw-stimulus');    
+    
+      var ball = new fabric.Circle({
+        radius: 10,
+        fill: 'black',
+        left: 300,
+        top: 300,
+        });
+
+      var imgElement = document.getElementById('my-image');
+      var imgInstance = new fabric.Image(imgElement, {
+        left: 200,
+        top: 200,
+        angle: 0,
+        opacity: 1.0
+        });
+      
+var ScreenText = new fabric.Text('Balls Drawn:', {left: 0, top: 550})      
+canvas.add (ball, imgInstance, ScreenText)
+/*
+var flip = function () {
+	switch(jar_selection_sequence[0]){
+	case 1:
+		coinresult = jsPsych.randomization.sampleWithReplacement(jar_1_both);
+		console.log(coinresult)
+		break;
+	case 2:
+		coinresult = jsPsych.randomization.sampleWithReplacement(jar_2_both);
+		console.log(coinresult)
+		break
+	}
+}
+*/
+var jar_shake = []
+var flip = function () {
+	if(jar_selection_sequence[sequence_counter] === 'jar_1_both'){
+		jar_shake = jsPsych.randomization.sampleWithReplacement(jar_1_both,1);
+		coinresult = jar_shake[0]
+	}
+	else{
+		jar_shake = jsPsych.randomization.sampleWithReplacement(jar_2_both,1);
+		coinresult = jar_shake[0]
+
+	}
+}
+
+
+var ResultsAnimation = function () {
+    if(coinresult === 0){
+        ball.set({fill: 'blue'})}
+        else{
+            ball.set({fill: 'red'})
+        }
+    do{
+        ball.animate('top', 100,
+    {onChange: canvas.renderAll.bind(canvas), 
+    duration: 500})
+    ball.set({top:100})
+    }
+    while(ball.get('top') == 300)
+    }
+var ReverseAnimation = function () {
+    ball.animate('top', 300,
+                 {onChange: canvas.renderAll.bind(canvas),
+                duration: 500})
+    ball.set({top:300})
+}    
+
+     
 switch(jar_selection_sequence[sequence_counter]) {
     case 'jar_1_both':
     var ball_amount = ball_drawing_sequence_1[sequence_counter_jar_1]
@@ -107,24 +173,19 @@ switch(jar_selection_sequence[sequence_counter]) {
     var ball_amount = ball_drawing_sequence_2[sequence_counter_jar_2]
     break;
 }
-switch(ball_amount){   
+    
+//var ball_amount = ball_drawing_sequence[sequence_counter]
 
+     
+switch(ball_amount){
     case 2:
         var ball_1 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[0],
         left: 10,
-        top: 50,
+        top: 600,
         });
-            
-        var ball_2 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[1],
-        left: 40,
-        top: 50,
-        });
-        
-        canvas.add(ball_1, ball_2)
+        canvas.add(ball_1)
         break;
         
     case 5:
@@ -132,38 +193,31 @@ switch(ball_amount){
         radius: 10,
         fill: colorresultarray[0],
         left: 10,
-        top: 50,
+        top: 600,
         });
             
         var ball_2 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[1],
         left: 40,
-        top: 50,
+        top: 600,
         });
         
-          var ball_3 = new fabric.Circle({
+        var ball_3 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[2],
         left: 70,
-        top: 50,
+        top: 600,
         });
         
-          var ball_4 = new fabric.Circle({
+        var ball_4 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[3],
         left: 100,
-        top: 50,
+        top: 600,
         });
         
-          var ball_5 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[4],
-        left: 130,
-        top: 50,
-        });
-        
-        canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5)
+        canvas.add(ball_1, ball_2, ball_3, ball_4)
         break;
 		
     case 10:
@@ -171,82 +225,78 @@ switch(ball_amount){
         radius: 10,
         fill: colorresultarray[0],
         left: 10,
-        top: 50,
+        top: 600,
         });
             
         var ball_2 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[1],
         left: 40,
-        top: 50,
+        top: 600,
         });
         
         var ball_3 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[2],
         left: 70,
-        top: 50,
+        top: 600,
         });
         
         var ball_4 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[3],
         left: 100,
-        top: 50,
+        top: 600,
         });
 		
         var ball_5 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[4],
         left: 130,
-        top: 50,
+        top: 600,
         });
 		
         var ball_6 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[5],
         left: 160,
-        top: 50,
+        top: 600,
         });
 		
         var ball_7 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[6],
         left: 190,
-        top: 50,
+        top: 600,
         });
 		
         var ball_8 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[7],
         left: 220,
-        top: 50,
+        top: 600,
         });
 		
         var ball_9 = new fabric.Circle({
         radius: 10,
         fill: colorresultarray[8],
         left: 250,
-        top: 50,
-        });
-		
-        var ball_10 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[9],
-        left: 280,
-        top: 50,
+        top: 600,
         });
         
-        canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9, ball_10)
+        canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9)
         break;
-}      
-      
-    // store response
-    var response = {
-      rt: null,
-      key: null
-    };
-
+}
+                  
+function BallCondition() {
+flip()
+ResultsAnimation()
+setTimeout(ReverseAnimation, 1000)
+}
+BallCondition()
+    
+    
+    
     // function to end trial when it is time
     var end_trial = function() {
 
@@ -262,7 +312,8 @@ switch(ball_amount){
       var trial_data = {
         "rt": response.rt,
         "stimulus": trial.stimulus,
-        "key_press": response.key
+        "key_press": response.key,
+        "Ball_color": coinresult
       };
 
       // clear the display
@@ -277,7 +328,7 @@ switch(ball_amount){
 
       // after a valid response, the stimulus will have the CSS class 'responded'
       // which can be used to provide visual feedback that a response was recorded
-      display_element.querySelector('#jspsych-image-keyboard-response-stimulus').className += ' responded';
+      display_element.querySelector('#jspsych-canvas-keyboard-response-draw-stimulus').className += ' responded';
 
       // only record the first response
       if (response.key == null) {
@@ -285,42 +336,7 @@ switch(ball_amount){
       }
 
       if (trial.response_ends_trial) {
-    switch(jar_selection_sequence[sequence_counter]) {
-    case 'jar_1_both':
-            var TestTextCorrect = new fabric.Text('Correct', {fontSize: 30, left: 100, top: 100}) 
-            var TestTextIncorrect = new fabric.Text('Incorrect', {fontSize: 30, left: 400, top: 100})
-		
-		
-            if(tutorial_trials <= 5){
-            canvas.add (TestTextCorrect, TestTextIncorrect)
-            }
-			
-			if(jar_selection_sequence[sequence_counter] === 'jar_1_both' && response.key === 37){
-				CorrectResponse += 1
-			}
-			console.log(CorrectResponse)
-			
-    break;
-    
-    case 'jar_2_both':
-            var TestTextIncorrect = new fabric.Text('Incorrect', {fontSize: 30, left: 100, top: 100}) 
-            var TestTextCorrect = new fabric.Text('Correct', {fontSize: 30, left: 400, top: 100}) 
-            if(tutorial_trials <= 5){
-            canvas.add (TestTextCorrect, TestTextIncorrect)
-            }   
-			
-			if(jar_selection_sequence[sequence_counter] === 'jar_2_both' && response.key === 39){
-				CorrectResponse += 1
-			}
-			console.log(CorrectResponse)
-    break;
-}
-        if(tutorial_trials <=5){  
-        setTimeout(end_trial, 2000);
-        }
-          else{
-              end_trial()
-          }
+        end_trial();
       }
     };
 
@@ -338,7 +354,7 @@ switch(ball_amount){
     // hide stimulus if stimulus_duration is set
     if (trial.stimulus_duration !== null) {
       jsPsych.pluginAPI.setTimeout(function() {
-        display_element.querySelector('#jspsych-image-keyboard-response-stimulus').style.visibility = 'hidden';
+        display_element.querySelector('#jspsych-canvas-keyboard-response-draw-stimulus').style.visibility = 'hidden';
       }, trial.stimulus_duration);
     }
 

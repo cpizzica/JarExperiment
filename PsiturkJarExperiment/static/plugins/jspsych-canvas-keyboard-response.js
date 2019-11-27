@@ -96,24 +96,9 @@ jsPsych.plugins["canvas-keyboard-response"] = (function() {
       
 var ctx = document.getElementById('jspsych-canvas-keyboard-response-stimulus')
 var canvas = new fabric.Canvas('jspsych-canvas-keyboard-response-stimulus');    
-    
-      var ball = new fabric.Circle({
-        radius: 10,
-        fill: 'black',
-        left: 300,
-        top: 300,
-        });
-
-      var imgElement = document.getElementById('my-image');
-      var imgInstance = new fabric.Image(imgElement, {
-        left: 200,
-        top: 200,
-        angle: 0,
-        opacity: 1.0
-        });
       
-var ScreenText = new fabric.Text('Balls Drawn:', {left: 0, top: 550})      
-canvas.add (ball, imgInstance, ScreenText)
+var ScreenText = new fabric.Text('Drawing Balls', {left: 235, top: 350})      
+canvas.add (ScreenText)
 /*
 var flip = function () {
 	switch(jar_selection_sequence[0]){
@@ -175,123 +160,9 @@ switch(jar_selection_sequence[sequence_counter]) {
 }
     
 //var ball_amount = ball_drawing_sequence[sequence_counter]
-
-     
-switch(ball_amount){
-    case 2:
-        var ball_1 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[0],
-        left: 10,
-        top: 600,
-        });
-        canvas.add(ball_1)
-        break;
-        
-    case 5:
-          var ball_1 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[0],
-        left: 10,
-        top: 600,
-        });
-            
-        var ball_2 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[1],
-        left: 40,
-        top: 600,
-        });
-        
-        var ball_3 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[2],
-        left: 70,
-        top: 600,
-        });
-        
-        var ball_4 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[3],
-        left: 100,
-        top: 600,
-        });
-        
-        canvas.add(ball_1, ball_2, ball_3, ball_4)
-        break;
-		
-    case 10:
-          var ball_1 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[0],
-        left: 10,
-        top: 600,
-        });
-            
-        var ball_2 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[1],
-        left: 40,
-        top: 600,
-        });
-        
-        var ball_3 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[2],
-        left: 70,
-        top: 600,
-        });
-        
-        var ball_4 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[3],
-        left: 100,
-        top: 600,
-        });
-		
-        var ball_5 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[4],
-        left: 130,
-        top: 600,
-        });
-		
-        var ball_6 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[5],
-        left: 160,
-        top: 600,
-        });
-		
-        var ball_7 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[6],
-        left: 190,
-        top: 600,
-        });
-		
-        var ball_8 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[7],
-        left: 220,
-        top: 600,
-        });
-		
-        var ball_9 = new fabric.Circle({
-        radius: 10,
-        fill: colorresultarray[8],
-        left: 250,
-        top: 600,
-        });
-        
-        canvas.add(ball_1, ball_2, ball_3, ball_4, ball_5, ball_6, ball_7, ball_8, ball_9)
-        break;
-}
-                  
+               
 function BallCondition() {
 flip()
-ResultsAnimation()
-setTimeout(ReverseAnimation, 1000)
 }
 BallCondition()
     
