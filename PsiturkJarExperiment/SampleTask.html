@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="../JarExperiment/jspsych.js"></script>
-  <script src="../JarExperiment/plugins/jspsych-canvas-keyboard-response.js"></script>
-  <script src="../JarExperiment/plugins/jspsych-canvas-keyboard-response-draw.js"></script>
+  <script src="../PsiturkJarExperiment/jspsych.js"></script>
+  <script src="../PsiturkJarExperiment/plugins/jspsych-canvas-keyboard-response.js"></script>
+  <script src="../PsiturkJarExperiment/plugins/jspsych-canvas-keyboard-response-draw.js"></script>
   
-      <script src="../JarExperiment/plugins/jspsych-image-keyboard-response.js"></script>
-      <script src="../JarExperiment/plugins/jspsych-html-keyboard-response.js"></script>
+      <script src="../PsiturkJarExperiment/plugins/jspsych-image-keyboard-response.js"></script>
+      <script src="../PsiturkJarExperiment/plugins/jspsych-html-keyboard-response.js"></script>
 	  
-          <script src="../JarExperiment/plugins/jspsych-image-keyboard-response-original.js"></script>
+          <script src="../PsiturkJarExperiment/plugins/jspsych-image-keyboard-response-original.js"></script>
 
 
-  <script src="../JarExperiment/js/fabric.js"> </script>
-  <link rel="stylesheet" href="../JarExperiment/css/jspsych.css"></link>
+  <script src="../PsiturkJarExperiment/js/fabric.js"> </script>
+  <link rel="stylesheet" href="../PsiturkJarExperiment/css/jspsych.css"></link>
   <style>
     img {
       width: 300px;
@@ -29,7 +29,7 @@
     var tutorial_trials = 0;
     var testimage = []
 	var CorrectResponse = 0
-
+    var Block_Percent_flag = 'off';
 
     
 
@@ -39,14 +39,14 @@
 
 //Sequence array
 var ball_drawing_trials_1 = [2, 5, 10]
-var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 7);
     
 var ball_drawing_trials_2 = [2, 5, 10]
-var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 7);
 
 // Jar selected Array
 var jar_selection = ['jar_1_both','jar_2_both']
-var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
 
 //////////////////
 
@@ -102,14 +102,19 @@ var trial_counter = 1
       prompt: '<p>Press the left arrow key for left and right arrow key for right</p>',
 	   on_start: function(trial){
            trial.stimulus = testimage
-       },
+		   if (Block_Percent_flag === 'off'){
+		   Block_Percent = (Math.round(((sequence_counter+1)/(tutorial_block.repetitions + 6))*100))
+		   }
+		   else {
+		   Block_Percent = (Math.round(((sequence_counter+1)/experiment_block.repetitions)*100))
+		   }
+		   },
       
       on_finish: function(data){
 	  	coinresultarray = []
 		colorresultarray = []
 		trial_counter = 1
         tutorial_trials += 1
-		console.log(tutorial_block.repetitions)
 
     switch(jar_selection_sequence[sequence_counter]) {
     case 'jar_1_both':
@@ -341,7 +346,7 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
 	   
 	    var tutorial_block = {
         timeline: [draw_sequence, test_trial],
-		///should be 24 for full tutorial block
+		///should be 30 for full tutorial block
 			repetitions: 30}
     
     
@@ -415,13 +420,25 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
 	
 	var performance_summary = {
 		type: 'html-keyboard-response',
-		stimulus: 'You need 28 Points or above to continue. <br> Your Score: ' + CorrectResponse + ' <br> Press Any Key to Continue to the next block',
+		stimulus: [],
 		on_start: function(trial){
-           //trial.stimulus = 'You need above 28 Points to continue. <br> Your Score: ' + CorrectResponse
-			if(CorrectResponse < 28) {
-				 trial.stimulus = 'You need above 28 Points to continue. <br> Your Score: ' + CorrectResponse +' <br> You have not passed the tutorial. Please close the Window and give up the HIT. This will not count as a Rejection.'
-				trial.choices = jsPsych.NO_KEYS
+			
+			Block_Percent_flag = 'on';
+						
+			switch(CorrectResponse > 28) {
+                case true:
+                trial.stimulus = 'You need 28 Points or above to continue. <br> Your Score: ' + CorrectResponse + ' <br> Press Any Key to Continue to the next block'
+                trial.choices = jsPsych.ALL_KEYS
+                break;
+                
+            
+                case false:
+				 trial.stimulus = 'You need above 28 Points to continue. <br> Your Score: ' + CorrectResponse + ' <br> You have not passed the tutorial. Please close the Window and give up the HIT. This will not count as a Rejection.'
+				 trial.choices = jsPsych.NO_KEYS
+                break;
 			}
+			
+			
 		}
 		
 	}
@@ -448,7 +465,6 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
   
   jsPsych.init({
     timeline: timeline,
-	      show_progress_bar: true,
        on_data_update: function(data){
            jsPsych.data.get().addToLast({coinresultarray: coinresultarray});
            jsPsych.data.get().addToLast({colorresultarray: colorresultarray})

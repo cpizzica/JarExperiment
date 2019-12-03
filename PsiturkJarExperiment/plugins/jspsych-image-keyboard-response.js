@@ -84,7 +84,7 @@ jsPsych.plugins["image-keyboard-response"] = (function() {
     }
     html +='"></img>';
       html +=  '<canvas id="BallsDrawn" width="600" height="200">'+ '</canvas>'
-	html += 'Block Percent Complete: ' + (Math.round(((sequence_counter+1)/tutorial_block.repetitions)*100))+ '%'
+	html += 'Block Percent Complete: ' + Block_Percent + '%'
 
     // add prompt
     if (trial.prompt !== null){
