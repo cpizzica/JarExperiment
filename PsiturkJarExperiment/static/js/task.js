@@ -1,14 +1,15 @@
 var psiturk = new PsiTurk(uniqueId, adServerLoc, mode);
 
 
-    var coinresultarray = [];
-    var colorresultarray = [];
-	var sequence_counter = 0;
-    var sequence_counter_jar_1 = 0;
-    var sequence_counter_jar_2 = 0;
-    var tutorial_trials = 0;
-    var testimage = []
-	var CorrectResponse = 0
+var coinresultarray = [];
+var colorresultarray = [];
+var sequence_counter = 0;
+var sequence_counter_jar_1 = 0;
+var sequence_counter_jar_2 = 0;
+var tutorial_trials = 0;
+var testimage = []
+var CorrectResponse = 0
+var Block_Percent_flag = 'off';
 
 
     
@@ -19,14 +20,14 @@ var psiturk = new PsiTurk(uniqueId, adServerLoc, mode);
 
 //Sequence array
 var ball_drawing_trials_1 = [2, 5, 10]
-var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 6);
+var ball_drawing_sequence_1 = jsPsych.randomization.repeat(ball_drawing_trials_1, 7);
     
 var ball_drawing_trials_2 = [2, 5, 10]
-var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 6);
+var ball_drawing_sequence_2 = jsPsych.randomization.repeat(ball_drawing_trials_2, 7);
 
 // Jar selected Array
 var jar_selection = ['jar_1_both','jar_2_both']
-var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 18);
+var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
 
 //////////////////
 
@@ -82,6 +83,13 @@ var trial_counter = 1
       prompt: '<p>Press the left arrow key for left and right arrow key for right</p>',
 	   on_start: function(trial){
            trial.stimulus = testimage
+		   if (Block_Percent_flag === 'off'){
+		   Block_Percent = (Math.round(((sequence_counter+1)/(tutorial_block.repetitions + 6))*100))
+		   }
+		   else {
+		   Block_Percent = (Math.round(((sequence_counter+1)/experiment_block.repetitions)*100))
+		   }
+		   },
        },
       
       on_finish: function(data){
@@ -89,7 +97,6 @@ var trial_counter = 1
 		colorresultarray = []
 		trial_counter = 1
         tutorial_trials += 1
-		console.log(tutorial_block.repetitions)
 
     switch(jar_selection_sequence[sequence_counter]) {
     case 'jar_1_both':
@@ -397,13 +404,22 @@ var jar_selection_sequence = jsPsych.randomization.repeat(jar_selection, 21);
 		type: 'html-keyboard-response',
 		stimulus: 'You need 28 Points or above to continue. <br> Your Score: ' + CorrectResponse + ' <br> Press Any Key to Continue to the next block',
 		on_start: function(trial){
-           //trial.stimulus = 'You need above 28 Points to continue. <br> Your Score: ' + CorrectResponse
-			if(CorrectResponse < 28) {
-				 trial.stimulus = 'You need above 28 Points to continue. <br> Your Score: ' + CorrectResponse +' <br> You have not passed the tutorial. Please close the Window and give up the HIT. This will not count as a Rejection.'
-				trial.choices = jsPsych.NO_KEYS
+			
+			Block_Percent_flag = 'on';
+						
+			switch(CorrectResponse > 28) {
+                case true:
+                trial.stimulus = 'You need 28 Points or above to continue. <br> Your Score: ' + CorrectResponse + ' <br> Press Any Key to Continue to the next block'
+                trial.choices = jsPsych.ALL_KEYS
+                break;
+                
+            
+                case false:
+				 trial.stimulus = 'You need above 28 Points to continue. <br> Your Score: ' + CorrectResponse + ' <br> You have not passed the tutorial. Please close the Window and give up the HIT. This will not count as a Rejection.'
+				 trial.choices = jsPsych.NO_KEYS
+                break;
 			}
 		}
-		
 	}
     
     timeline.push(instructions_1)

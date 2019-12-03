@@ -84,7 +84,7 @@ jsPsych.plugins["image-keyboard-response"] = (function() {
     }
     html +='"></img>';
       html +=  '<canvas id="BallsDrawn" width="600" height="200">'+ '</canvas>'
-	html += 'Block Percent Complete: ' + (Math.round(((sequence_counter+1)/tutorial_block.repetitions)*100))+ '%'
+	html += 'Block Percent Complete: ' + Block_Percent + '%'
 
     // add prompt
     if (trial.prompt !== null){
@@ -298,7 +298,6 @@ switch(ball_amount){
 			if(jar_selection_sequence[sequence_counter] === 'jar_1_both' && response.key === 37){
 				CorrectResponse += 1
 			}
-			console.log(CorrectResponse)
 			
     break;
     
@@ -312,7 +311,6 @@ switch(ball_amount){
 			if(jar_selection_sequence[sequence_counter] === 'jar_2_both' && response.key === 39){
 				CorrectResponse += 1
 			}
-			console.log(CorrectResponse)
     break;
 }
         if(tutorial_trials <=5){  
